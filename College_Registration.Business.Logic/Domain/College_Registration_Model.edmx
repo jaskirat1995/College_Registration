@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbStudentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblStudentRecords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pincode" Type="nvarchar" MaxLength="10" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="YearId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastUpdatedDate" Type="datetime" />
+          <Property Name="Batch" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblYear">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tblStudentRecords_tblCourse">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
+          <End Role="tblStudentRecords" Type="Self.tblStudentRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudentRecords">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudentRecords_tblYear">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
+          <End Role="tblStudentRecords" Type="Self.tblStudentRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudentRecords">
+              <PropertyRef Name="YearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbStudentModelStoreContainer">
+          <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudentRecords" EntityType="Self.tblStudentRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblYear" EntityType="Self.tblYear" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblStudentRecords_tblCourse" Association="Self.FK_tblStudentRecords_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblStudentRecords" EntitySet="tblStudentRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudentRecords_tblYear" Association="Self.FK_tblStudentRecords_tblYear">
+            <End Role="tblYear" EntitySet="tblYear" />
+            <End Role="tblStudentRecords" EntitySet="tblStudentRecords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbStudentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblStudentRecords" Relationship="Self.FK_tblStudentRecords_tblCourse" FromRole="tblCourse" ToRole="tblStudentRecords" />
+        </EntityType>
+        <EntityType Name="tblStudentRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pincode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="YearId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Batch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCourse" Relationship="Self.FK_tblStudentRecords_tblCourse" FromRole="tblStudentRecords" ToRole="tblCourse" />
+          <NavigationProperty Name="tblYear" Relationship="Self.FK_tblStudentRecords_tblYear" FromRole="tblStudentRecords" ToRole="tblYear" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblYear">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblStudentRecords" Relationship="Self.FK_tblStudentRecords_tblYear" FromRole="tblYear" ToRole="tblStudentRecords" />
+        </EntityType>
+        <Association Name="FK_tblStudentRecords_tblCourse">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="0..1" />
+          <End Role="tblStudentRecords" Type="Self.tblStudentRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudentRecords">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudentRecords_tblYear">
+          <End Role="tblYear" Type="Self.tblYear" Multiplicity="0..1" />
+          <End Role="tblStudentRecords" Type="Self.tblStudentRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblYear">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblStudentRecords">
+              <PropertyRef Name="YearId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbStudentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCourses" EntityType="Self.tblCourse" />
+          <EntitySet Name="tblStudentRecords" EntityType="Self.tblStudentRecord" />
+          <EntitySet Name="tblYears" EntityType="Self.tblYear" />
+          <AssociationSet Name="FK_tblStudentRecords_tblCourse" Association="Self.FK_tblStudentRecords_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourses" />
+            <End Role="tblStudentRecords" EntitySet="tblStudentRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudentRecords_tblYear" Association="Self.FK_tblStudentRecords_tblYear">
+            <End Role="tblYear" EntitySet="tblYears" />
+            <End Role="tblStudentRecords" EntitySet="tblStudentRecords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbStudentModelStoreContainer" CdmEntityContainer="dbStudentEntities">
+          <EntitySetMapping Name="tblCourses">
+            <EntityTypeMapping TypeName="dbStudentModel.tblCourse">
+              <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudentRecords">
+            <EntityTypeMapping TypeName="dbStudentModel.tblStudentRecord">
+              <MappingFragment StoreEntitySet="tblStudentRecords">
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="YearId" ColumnName="YearId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblYears">
+            <EntityTypeMapping TypeName="dbStudentModel.tblYear">
+              <MappingFragment StoreEntitySet="tblYear">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
